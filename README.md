@@ -1,42 +1,46 @@
+## Rapport
+Först skapades en ny Aktivitet / Acitivty för att lägga till en andra skärm genom att gå in på `File > New > Activity > Basic Activity`. Detta lägger automatiskt till nödvändig kod och nya filer, där det inom intresse är **activity_screen.xml**. Denna fil är layouten för den nya skrämen, där fragmenten ska läggas till med en *fragment* tag:
 
-# Rapport
+    <fragment  
+      android:id="@+id/fragment"  
+      android:name="com.example.screens.BlankFragment" <!-- Länkar till fragmenten -->  
+      android:layout_width="wrap_content"  
+      android:layout_height="wrap_content"  
+      app:layout_constraintBottom_toBottomOf="parent"  
+      app:layout_constraintEnd_toEndOf="parent"  
+      app:layout_constraintStart_toStartOf="parent"  
+      app:layout_constraintTop_toTopOf="parent" />
 
-**Skriv din rapport här!**
+Denna fragment skapades genom att gå på `File > New > Fragment > Fragment (Blank)`. Detta lägger till nya fragment filer, där **fragment_blank.xml** är det av intresse då det är där som inehåll läggs till, i detta fallet en enkel *TextView*:
 
-_Du kan ta bort all text som finns sedan tidigare_.
+    <TextView  
+      android:layout_width="wrap_content"  
+      android:layout_height="wrap_content"  
+      android:text="@string/Fragment_Text_Here"  
+      app:layout_constraintBottom_toBottomOf="parent"  
+      app:layout_constraintLeft_toLeftOf="parent"  
+      app:layout_constraintRight_toRightOf="parent"  
+      app:layout_constraintTop_toTopOf="parent" /> 
+För att starta den andra skärmen med fragmenten användes *intent* i **MainActivity.java**. En *OnClickListener* lyssnar efter ett knapptryck från knappen för att sedan aktivera den:
 
-## Följande grundsyn gäller dugga-svar:
+    Button button = findViewById(R.id.button);  
+    button.setOnClickListener(new View.OnClickListener() {  
+      @Override  
+      public void onClick(View v) {  
+      Intent intent = new Intent(MainActivity.this, Screen.class);  
+      startActivity(intent);
+      }
 
-- Ett kortfattat svar är att föredra. Svar som är längre än en sida text (skärmdumpar och programkod exkluderat) är onödigt långt.
-- Svaret skall ha minst en snutt programkod.
-- Svaret skall inkludera en kort övergripande förklarande text som redogör för vad respektive snutt programkod gör eller som svarar på annan teorifråga.
-- Svaret skall ha minst en skärmdump. Skärmdumpar skall illustrera exekvering av relevant programkod. Eventuell text i skärmdumpar måste vara läsbar.
-- I de fall detta efterfrågas, dela upp delar av ditt svar i för- och nackdelar. Dina för- respektive nackdelar skall vara i form av punktlistor med kortare stycken (3-4 meningar).
+och en knapp som aktiverar den i **activity_main.xml**:
 
-Programkod ska se ut som exemplet nedan. Koden måste vara korrekt indenterad då den blir lättare att läsa vilket gör det lättare att hitta syntaktiska fel.
+    <Button  
+      android:id="@+id/button"  
+      android:layout_width="wrap_content"  
+      android:layout_height="wrap_content"  
+      android:text="HPress here"  
+      app:layout_constraintBottom_toBottomOf="parent"  
+      app:layout_constraintLeft_toLeftOf="parent"  
+      app:layout_constraintRight_toRightOf="parent"  
+      app:layout_constraintTop_toTopOf="parent"/>
 
-```
-function errorCallback(error) {
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            // Geolocation API stöds inte, gör något
-            break;
-        case error.POSITION_UNAVAILABLE:
-            // Misslyckat positionsanrop, gör något
-            break;
-        case error.UNKNOWN_ERROR:
-            // Okänt fel, gör något
-            break;
-    }
-}
-```
-
-Bilder läggs i samma mapp som markdown-filen.
-
-![](android.png)
-
-Läs gärna:
-
-- Boulos, M.N.K., Warren, J., Gong, J. & Yue, P. (2010) Web GIS in practice VIII: HTML5 and the canvas element for interactive online mapping. International journal of health geographics 9, 14. Shin, Y. &
-- Wunsche, B.C. (2013) A smartphone-based golf simulation exercise game for supporting arthritis patients. 2013 28th International Conference of Image and Vision Computing New Zealand (IVCNZ), IEEE, pp. 459–464.
-- Wohlin, C., Runeson, P., Höst, M., Ohlsson, M.C., Regnell, B., Wesslén, A. (2012) Experimentation in Software Engineering, Berlin, Heidelberg: Springer Berlin Heidelberg.
+![](Screenshot_1620035352.png)
